@@ -24,9 +24,7 @@ namespace VncViewerLib.WPF
         public string Hostname { get => _VncClient?.Framebuffer?.Name; }
         
         public WriteableBitmap FramebufferBitmap { get; private set; }
-        private WritableBitmapWriter _WritableBitmapWriter;
-
-        public int RefreshInterval { get; private set; }
+        private WritableBitmapWriter _WritableBitmapWriter;     
 
         #region Events
 
@@ -42,14 +40,13 @@ namespace VncViewerLib.WPF
         }      
         
         public async Task ConnectAsync(String host, int port, byte bitsPerPixel, byte depth)
-        {            
+        {
+            if (String.IsNullOrWhiteSpace(host)) throw new ArgumentException(nameof(host));
+            
             ShowLabelText($"Connecting to VNC host {host}:{port} please wait... ");
 
             _VncClient?.Dispose();
-            _VncClient = new VncClient(bitsPerPixel, depth)
-            {
-                RefreshInterval = RefreshInterval
-            };
+            _VncClient = new VncClient(bitsPerPixel, depth);
             _VncClient.OnDisconnect += _VncClient_OnDisconnect;
             _VncClient.OnFramebufferUpdate += _VncClient_OnFramebufferUpdate;
 
