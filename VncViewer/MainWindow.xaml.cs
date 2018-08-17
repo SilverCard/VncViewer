@@ -17,7 +17,14 @@ namespace VncViewer
 
         public MainWindow()
         {
-            Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilename));
+            Config = Config.ReadFromFile(ConfigFilename);
+
+            if(Config.Password != null)
+            {
+                Config.ProtectPassword();
+                Config.Save(ConfigFilename);
+            }
+
             IsFullScreen = false;
         }
 
@@ -37,12 +44,24 @@ namespace VncViewer
 
         public async Task Connect()
         {
+            String vncPassword;
+            try
+            {
+                vncPassword = Config.GetProtectedPassword();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to get the protect password from config file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+ 
+
             while (true)
             {
                 try
                 {
                     await vvc.ConnectAsync(Config.Host, Config.Port, Config.BitsPerPixel, Config.Depth);
-                    await vvc.VncAuthenticate(Config.Password);
+                    await vvc.VncAuthenticate(vncPassword);
                     await vvc.InitializeAsync();
                     OnConnected();
                     break;
