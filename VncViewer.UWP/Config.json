@@ -1,0 +1,7 @@
+﻿{
+  "Host": "localhost",
+  "Port": 5900,
+  "Password": "password",
+  "BitsPerPixel": 8,
+  "Depth": 8
+}
