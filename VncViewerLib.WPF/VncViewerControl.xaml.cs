@@ -78,6 +78,7 @@ namespace VncViewerLib.WPF
             catch (VncSecurityException ex)
             {
                 ShowLabelText($"Authentication failed: {ex.Reason}.");
+                throw;
             }
 
         }
