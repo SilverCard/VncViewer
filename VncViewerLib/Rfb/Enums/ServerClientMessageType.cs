@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+#pragma warning disable CA1028 // Enum Storage should be Int32
+
 namespace VncViewerLib
 {
     public enum ServerClientMessageType : byte

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
+
+#pragma warning disable CA1720 // Identifier contains type name
 
 namespace VncViewerLib
 {
@@ -11,6 +11,7 @@ namespace VncViewerLib
         public PropertyInfo PropertyInfo { get; private set; }
         public MessageMemberAttribute MessageMemberAttribute { get; private set; }
         public Type Type { get; private set; }
+
 
         public static MessageMemberInfo FromPropertyInfo(PropertyInfo pi, Object obj)
         {

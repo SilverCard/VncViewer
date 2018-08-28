@@ -9,7 +9,7 @@ namespace VncViewerLib
         public RfbSerializer Serializer { get; internal set; }
         public Framebuffer Framebuffer { get; internal set; }
 
-        protected const int _Alpha = 0xFF << 24;
+        private const int _Alpha = 0xFF << 24;
 
         protected PixelReader(Framebuffer framebuffer, RfbSerializer rfbSerializer)
         {
@@ -19,7 +19,7 @@ namespace VncViewerLib
 
         public abstract int ReadPixel();
 
-        protected int PackPixel(byte red, byte green, byte blue)
+        protected static int PackPixel(byte red, byte green, byte blue)
         {
             // Put colour values into proper order for GDI+ (i.e., BGRA, where Alpha is always 0xFF)
             return blue & 0xFF | green << 8 | red << 16 | _Alpha;

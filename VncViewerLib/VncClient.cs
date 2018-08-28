@@ -44,17 +44,17 @@ namespace VncViewerLib
         /// <summary>
         /// Raised when the framebuffer is updated.
         /// </summary>
-        public event FrameupdateUpdateHandler OnFramebufferUpdate;
+        public event FrameupdateUpdateEventHandler OnFramebufferUpdate;
 
         /// <summary>
         /// Raised when the client is disconnected.
         /// </summary>
-        public event DisconnectHandler OnDisconnect;
+        public event DisconnectEventHandler OnDisconnect;
 
         /// <summary>
         /// Raised when the client change its state.
         /// </summary>
-        public event VncStateChangedHandler OnStateChanged;
+        public event VncStateChangedEventHandler OnStateChanged;
 
         private Task _ReceiveUpdatesTask;
         private CancellationTokenSource _Cts;
@@ -70,7 +70,7 @@ namespace VncViewerLib
                 SendTimeout = Timeout,
                 ReceiveTimeout = Timeout
             };
-            _SecurityTypes = new byte[0];
+            _SecurityTypes = Array.Empty<byte>();
 
             _PixelFormat = new PixelFormat(bitsPerPixel, depth);
             Timeout = 1500;
@@ -166,7 +166,7 @@ namespace VncViewerLib
         public void ReceiveUpdates()
         {
             _Cts = new CancellationTokenSource();
-            _ReceiveUpdatesTask = Task.Factory.StartNew(() => ReceiveUpdates(_Cts.Token));
+            _ReceiveUpdatesTask = Task.Run(() => ReceiveUpdates(_Cts.Token));
         }
 
         public void StopUpdates()
@@ -335,10 +335,10 @@ namespace VncViewerLib
             }
         }
 
-        public void Dispose()
-        {
-            _TcpClient?.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _TcpClient?.Dispose();
+        //}
 
         /// <summary>
         /// Check if the server supports Vnc Authentication.
@@ -365,6 +365,30 @@ namespace VncViewerLib
                 }
             }
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _TcpClient?.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
+
 
     }
 }

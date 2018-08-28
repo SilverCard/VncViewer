@@ -4,6 +4,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
+#pragma warning disable CA1819 // Properties should not return arrays
+
 namespace VncViewer
 {
     public class Config
@@ -34,7 +36,7 @@ namespace VncViewer
             }
         }
 
-        public String GetProtectedPassword()
+        public String GetUnprotectedPassword()
         {
             var p = ProtectedData.Unprotect(ProtectedPassword, null, DataProtectionScope.CurrentUser);
             return Encoding.UTF8.GetString(p);

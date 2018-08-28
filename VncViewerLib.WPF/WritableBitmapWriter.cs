@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -32,7 +33,7 @@ namespace VncViewerLib.WPF
         /// <summary>
         /// Copy a rectangle from framebuffer into the bitmap's buffer.
         /// </summary>
-        private void CopyRectangle(IntPtr backBuffer, Framebuffer framebuffer, Rectangle r)
+        private static void CopyRectangle(IntPtr backBuffer, Framebuffer framebuffer, Rectangle r)
         {
             if (backBuffer == IntPtr.Zero) throw new ArgumentOutOfRangeException(nameof(backBuffer));
             if (framebuffer == null) throw new ArgumentNullException(nameof(framebuffer));
@@ -47,7 +48,7 @@ namespace VncViewerLib.WPF
         /// <summary>
         /// Copy multiple rectangles from framebuffer into the bitmap.
         /// </summary>
-        public void UpdateFromFramebuffer(Framebuffer f, Rectangle[] rectangles)
+        public void UpdateFromFramebuffer(Framebuffer f, IEnumerable<Rectangle> rectangles)
         {
             if(f == null) throw new ArgumentNullException(nameof(f));
             if(rectangles == null) throw new ArgumentNullException(nameof(rectangles));

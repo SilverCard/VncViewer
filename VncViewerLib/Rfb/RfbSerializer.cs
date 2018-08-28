@@ -55,9 +55,9 @@ namespace VncViewerLib
         }
 
 
-        public void Serialize(Object obj)
+        public void Serialize(Object value)
         {
-            var memberInfos = obj.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(MessageMemberAttribute))).Select(p => MessageMemberInfo.FromPropertyInfo(p, obj));
+            var memberInfos = value.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(MessageMemberAttribute))).Select(p => MessageMemberInfo.FromPropertyInfo(p, value));
 
             foreach (var m in memberInfos.OrderBy(x => x.MessageMemberAttribute.Index))
             {

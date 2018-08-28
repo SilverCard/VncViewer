@@ -1,5 +1,8 @@
 ﻿using System;
 
+#pragma warning disable CA1032 // Implement standard exception constructors
+#pragma warning disable CA2237
+
 namespace VncViewerLib
 {
     public class VncSecurityException : Exception
@@ -9,7 +12,7 @@ namespace VncViewerLib
 
         public VncSecurityException(String message, uint securityResult, String reason = null) : base(message)
         {
-            Reason = null;
+            Reason = reason;
             SecurityResult = securityResult;
         }
     }

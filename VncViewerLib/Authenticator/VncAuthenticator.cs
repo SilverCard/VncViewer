@@ -2,6 +2,9 @@
 using System.Security.Cryptography;
 using System.Text;
 
+
+#pragma warning disable CA5351 // Do Not Use Broken Cryptographic Algorithms
+
 namespace VncViewerLib
 {
     public class VncAuthenticator : RfbAuthenticator
@@ -33,7 +36,7 @@ namespace VncViewerLib
             _PasswordBytes = MakeKey(password);
         }
 
-        private byte[] MakeKey(String password)
+        private static byte[] MakeKey(String password)
         {
             if (password == null) throw new ArgumentNullException(nameof(password));
 
@@ -52,11 +55,14 @@ namespace VncViewerLib
             if (key == null) throw new ArgumentNullException(nameof(key));
             if (challenge == null) throw new ArgumentNullException(nameof(challenge));
 
+
+
             using (var des = new DESCryptoServiceProvider()
             {
                 Padding = PaddingMode.None,
                 Mode = CipherMode.ECB
             })
+
             using (var enc = des.CreateEncryptor(key, null))
             {
                 var response = new byte[16];
@@ -64,6 +70,7 @@ namespace VncViewerLib
                 return response;
             }
         }
+
 
         public override void Authenticate(RfbSerializer serializer)
         {

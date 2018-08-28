@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+#pragma warning disable CA1819 // Properties should not return arrays
+
 namespace VncViewerLib
 {
     public class SetEncodingsMessage : MessageBase
@@ -14,12 +16,13 @@ namespace VncViewerLib
         public short NumberOfEncodings { get; private set; }
 
         [MessageMember(3)]
+
         public int[] Encodings { get; private set; }
 
         public SetEncodingsMessage(RfbEncodingType[] encodings) : base(2)
         {
             if (encodings == null) throw new ArgumentNullException(nameof(encodings));
-            if (encodings.Length > short.MaxValue) throw new ArgumentOutOfRangeException("Too many encodings.");
+            if (encodings.Length > short.MaxValue) throw new ArgumentOutOfRangeException(nameof(encodings), "Too many encodings.");
 
             NumberOfEncodings = (short)encodings.Length;
             Encodings = encodings.Select(e => (int)e).ToArray();

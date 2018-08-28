@@ -13,10 +13,11 @@ namespace VncViewerLib.WPF
 {
 
     [ToolboxBitmap(typeof(VncViewerControl), "Resources.vncviewer.ico")]
-    public partial class VncViewerControl : UserControl
+    public partial class VncViewerControl : UserControl, IDisposable
     {        
         
-        private VncClient _VncClient;                                    
+        private VncClient _VncClient;          
+        
 
         public const String CursorName = "VncCursor";
         public Cursor VncCursor { get; private set; }
@@ -41,7 +42,7 @@ namespace VncViewerLib.WPF
         
         public async Task ConnectAsync(String host, int port, byte bitsPerPixel, byte depth)
         {
-            if (String.IsNullOrWhiteSpace(host)) throw new ArgumentException(nameof(host));
+            if (String.IsNullOrWhiteSpace(host)) throw new ArgumentException("Host is invalid.", nameof(host));
             
             ShowLabelText($"Connecting to VNC host {host}:{port} please wait... ");
 
@@ -55,7 +56,7 @@ namespace VncViewerLib.WPF
                 await Task.Run(() =>
                 {
                     _VncClient.Connect(host, port);
-                });
+                }).ConfigureAwait(true);
             }
             catch (Exception ex)
             {
@@ -73,7 +74,7 @@ namespace VncViewerLib.WPF
 
             try
             {
-                await Task.Run(() => _VncClient.Authenticate(a));
+                await Task.Run(() => _VncClient.Authenticate(a)).ConfigureAwait(true);
             }
             catch (VncSecurityException ex)
             {
@@ -91,7 +92,7 @@ namespace VncViewerLib.WPF
         public async Task InitializeAsync()
         {
             ShowLabelText("Initializing...");
-            await Task.Run(() => _VncClient.Initialize());
+            await Task.Run(() => _VncClient.Initialize()).ConfigureAwait(true);
 
             FramebufferBitmap = WritableBitmapWriter.BuildWriteableBitmap(_VncClient.Framebuffer.Width, _VncClient.Framebuffer.Height);
             VncImage.Source = FramebufferBitmap;
@@ -125,6 +126,31 @@ namespace VncViewerLib.WPF
         {
             Label.Visibility = Visibility.Hidden;
         }
-        
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _VncClient?.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+      
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
+
     }
 }

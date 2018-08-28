@@ -74,9 +74,27 @@ namespace VncViewerLib
             return rects;
         }
 
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _ZlibStream?.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            _ZlibStream?.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

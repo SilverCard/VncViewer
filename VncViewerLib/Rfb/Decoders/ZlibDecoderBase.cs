@@ -2,7 +2,7 @@
 {
     public abstract class ZlibDecoderBase : BaseDecoder
     {
-        protected ZlibStream _ZlibStream;
+        private ZlibStream _ZlibStream;
 
         public ZlibDecoderBase(Framebuffer framebuffer, RfbSerializer rfbSerializer, ZlibStream zStream) : base(framebuffer, rfbSerializer)
         {

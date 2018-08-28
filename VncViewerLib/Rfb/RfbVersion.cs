@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace VncViewerLib
 {
-    public struct RfbVersion
+    public struct RfbVersion : IEquatable<RfbVersion>, IComparable<RfbVersion>
     {
         public int Major { get; private set; }
         public int Minor { get; private set; }
@@ -29,13 +30,13 @@ namespace VncViewerLib
             {
                 var major = m.Groups[1].ToString();
                 var minor = m.Groups[2].ToString();
-                return new RfbVersion(int.Parse(major), int.Parse(minor));
+                return new RfbVersion(int.Parse(major, CultureInfo.InvariantCulture), int.Parse(minor, CultureInfo.InvariantCulture));
             }
 
             throw new ArgumentException(nameof(str));
         }
 
-        public override string ToString() => String.Format("RFB {0:000}.{1:000}\n", Major, Minor);
+        public override string ToString() => String.Format(CultureInfo.InvariantCulture, "RFB {0:000}.{1:000}\n", Major, Minor);
 
         public override bool Equals(object obj)
         {
@@ -57,6 +58,8 @@ namespace VncViewerLib
             return hashCode;
         }
 
+        public bool Equals(RfbVersion other) => this.Major == other.Major && this.Minor == other.Minor;
+
         public static bool operator ==(RfbVersion c1, RfbVersion c2) => c1.Major == c2.Major && c1.Minor == c2.Minor;
         public static bool operator !=(RfbVersion c1, RfbVersion c2) => !(c1.Major == c2.Major && c1.Minor == c2.Minor);
 
@@ -66,5 +69,11 @@ namespace VncViewerLib
         public static bool operator <=(RfbVersion c1, RfbVersion c2) => c1.Major <= c2.Major && c1.Minor <= c2.Minor;
         public static bool operator >=(RfbVersion c1, RfbVersion c2) => c2.Major <= c1.Major && c2.Minor <= c1.Minor;
 
+        public int CompareTo(RfbVersion other)
+        {
+            var c1 = this.Major.CompareTo(other.Major);
+            if (c1 != 0) return c1;
+            return this.Minor.CompareTo(other.Minor);
+        }
     }
 }

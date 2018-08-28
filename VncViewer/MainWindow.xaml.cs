@@ -38,7 +38,7 @@ namespace VncViewer
             for (int i = 10; i >= 1; i--)
             {
                 vvc.ShowLabelText($"{e.Message}\r\nTrying to connected in {i}s.");
-                await Task.Delay(1000);
+                await Task.Delay(1000).ConfigureAwait(true);
             }
         }
 
@@ -47,7 +47,7 @@ namespace VncViewer
             String vncPassword;
             try
             {
-                vncPassword = Config.GetProtectedPassword();
+                vncPassword = Config.GetUnprotectedPassword();
             }
             catch (Exception)
             {
@@ -60,15 +60,15 @@ namespace VncViewer
             {
                 try
                 {
-                    await vvc.ConnectAsync(Config.Host, Config.Port, Config.BitsPerPixel, Config.Depth);
-                    await vvc.VncAuthenticate(vncPassword);
-                    await vvc.InitializeAsync();
+                    await vvc.ConnectAsync(Config.Host, Config.Port, Config.BitsPerPixel, Config.Depth).ConfigureAwait(true);
+                    await vvc.VncAuthenticate(vncPassword).ConfigureAwait(true);
+                    await vvc.InitializeAsync().ConfigureAwait(true);
                     OnConnected();
                     break;
                 }
                 catch (Exception ex)
                 {
-                    await HandleConnectionFailed(ex);
+                    await HandleConnectionFailed(ex).ConfigureAwait(true);
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace VncViewer
         private async void Window_Initialized(object sender, System.EventArgs e)
         {
             vvc.OnDisconnected += VncConnectionLost;
-            await Connect();
+            await Connect().ConfigureAwait(true);
         }
 
         private void SetTitle(String title)

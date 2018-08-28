@@ -4,6 +4,7 @@ using System.Text;
 
 namespace VncViewerLib
 {
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class MessageMemberAttribute : Attribute
     {
         public int Index { get; private set; }

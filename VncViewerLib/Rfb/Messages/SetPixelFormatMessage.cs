@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
+#pragma warning disable CA1819 // Properties should not return arrays
+
 namespace VncViewerLib
 {
     public class SetPixelFormatMessage : MessageBase
     {
         [MessageMember(1, 3)]
+
         public byte[] Padding { get; private set; }
 
         [MessageMember(2)]

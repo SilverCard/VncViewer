@@ -1,5 +1,8 @@
 ﻿using System;
 
+#pragma warning disable CA1819 // Properties should not return arrays
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace VncViewerLib
 {
     public class Framebuffer

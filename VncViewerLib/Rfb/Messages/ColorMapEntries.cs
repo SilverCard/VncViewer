@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+#pragma warning disable CA1819 // Properties should not return arrays
 
 namespace VncViewerLib
 {
