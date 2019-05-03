@@ -1,4 +1,4 @@
-﻿namespace VncViewerLib
+﻿namespace VncViewer.Vnc
 {
     public sealed class PixelReader8 : PixelReader
     {

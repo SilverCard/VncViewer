@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Threading;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class RfbDecoder : IDisposable
     {

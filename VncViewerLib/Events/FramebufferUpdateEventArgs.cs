@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class FramebufferUpdateEventArgs : EventArgs
     {

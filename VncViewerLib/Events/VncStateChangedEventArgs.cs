@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class VncStateChangedEventArgs : EventArgs
     {

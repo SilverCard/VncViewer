@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public struct RfbVersion : IEquatable<RfbVersion>, IComparable<RfbVersion>
     {

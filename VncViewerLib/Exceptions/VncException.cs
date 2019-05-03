@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     [Serializable]
     public class VncException : Exception

@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VncViewerLib", "VncViewerLib\VncViewerLib.csproj", "{138298B2-85BC-4579-A386-FB35ECD11843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VncViewer.Vnc", "VncViewerLib\VncViewer.Vnc.csproj", "{138298B2-85BC-4579-A386-FB35ECD11843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewerLib.WPF", "VncViewerLib.WPF\VncViewerLib.WPF.csproj", "{A64C1541-9D21-4719-9D02-695169FEB9AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.WPF", "VncViewerLib.WPF\VncViewer.WPF.csproj", "{A64C1541-9D21-4719-9D02-695169FEB9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer", "VncViewer\VncViewer.csproj", "{F5A5C377-72BE-42CA-83BF-5C648137227D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.App", "VncViewer\VncViewer.App.csproj", "{F5A5C377-72BE-42CA-83BF-5C648137227D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.UWP", "VncViewer.UWP\VncViewer.UWP.csproj", "{843ABB26-E0CD-4850-A921-48CFBED800B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.App.Core", "VncViewer.App.Core\VncViewer.App.Core.csproj", "{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.App.Config", "VncViewer.App.Config\VncViewer.App.Config.csproj", "{EE0D562A-E907-4F87-93EA-2EBABE1C1578}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +95,38 @@ Global
 		{843ABB26-E0CD-4850-A921-48CFBED800B7}.Release|x86.ActiveCfg = Release|x86
 		{843ABB26-E0CD-4850-A921-48CFBED800B7}.Release|x86.Build.0 = Release|x86
 		{843ABB26-E0CD-4850-A921-48CFBED800B7}.Release|x86.Deploy.0 = Release|x86
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|ARM.Build.0 = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|x64.Build.0 = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Debug|x86.Build.0 = Debug|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|ARM.ActiveCfg = Release|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|ARM.Build.0 = Release|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|x64.ActiveCfg = Release|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|x64.Build.0 = Release|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|x86.ActiveCfg = Release|Any CPU
+		{85FAFDCB-F9AA-4E3F-9593-DE1D51DD9A40}.Release|x86.Build.0 = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|ARM.Build.0 = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|x64.Build.0 = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Debug|x86.Build.0 = Debug|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|ARM.ActiveCfg = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|ARM.Build.0 = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|x64.ActiveCfg = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|x64.Build.0 = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|x86.ActiveCfg = Release|Any CPU
+		{EE0D562A-E907-4F87-93EA-2EBABE1C1578}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

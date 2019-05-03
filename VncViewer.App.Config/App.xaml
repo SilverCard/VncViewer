@@ -1,7 +1,7 @@
-﻿<Application x:Class="VncViewer.App"
+﻿<Application x:Class="VncViewer.App.Config.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:VncViewer"
+             xmlns:local="clr-namespace:VncViewer.App.Config"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

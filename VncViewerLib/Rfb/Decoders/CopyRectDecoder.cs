@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class CopyRectDecoder : BaseDecoder
     {    

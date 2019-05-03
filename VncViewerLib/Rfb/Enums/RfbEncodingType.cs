@@ -1,4 +1,4 @@
-﻿namespace VncViewerLib
+﻿namespace VncViewer.Vnc
 {
     public enum RfbEncodingType : int
     {

@@ -146,9 +146,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VncViewerLib\VncViewerLib.csproj">
+    <ProjectReference Include="..\VncViewerLib\VncViewer.Vnc.csproj">
       <Project>{138298b2-85bc-4579-a386-fb35ecd11843}</Project>
-      <Name>VncViewerLib</Name>
+      <Name>VncViewer.Vnc</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -4,7 +4,7 @@ using System.Text;
 
 #pragma warning disable CA1028 // Enum Storage should be Int32
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public enum ServerClientMessageType : byte
     {

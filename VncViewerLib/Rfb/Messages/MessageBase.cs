@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public abstract class MessageBase
     {

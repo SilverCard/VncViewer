@@ -4,8 +4,9 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using VncViewer.Vnc;
 
-namespace VncViewerLib.WPF
+namespace VncViewer.WPF
 {
     public class WritableBitmapWriter
     {

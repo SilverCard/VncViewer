@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class ZrleDecoder : ZlibDecoderBase
     {

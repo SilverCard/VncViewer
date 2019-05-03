@@ -1,4 +1,4 @@
-﻿namespace VncViewerLib
+﻿namespace VncViewer.Vnc
 {
     public delegate void FrameupdateUpdateEventHandler(VncClient sender, FramebufferUpdateEventArgs e);
     public delegate void DisconnectEventHandler(VncClient sender, DisconnectEventArgs e);

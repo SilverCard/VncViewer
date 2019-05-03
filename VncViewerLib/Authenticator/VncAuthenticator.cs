@@ -5,7 +5,7 @@ using System.Text;
 
 #pragma warning disable CA5351 // Do Not Use Broken Cryptographic Algorithms
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class VncAuthenticator : RfbAuthenticator
     {

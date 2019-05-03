@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 #pragma warning disable CA1819 // Properties should not return arrays
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class ColorMapEntries
     {

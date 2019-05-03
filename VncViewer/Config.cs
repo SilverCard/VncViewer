@@ -6,7 +6,7 @@ using System.Text;
 
 #pragma warning disable CA1819 // Properties should not return arrays
 
-namespace VncViewer
+namespace VncViewer.App
 {
     public class Config
     {

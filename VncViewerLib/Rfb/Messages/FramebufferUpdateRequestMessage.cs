@@ -1,4 +1,4 @@
-﻿namespace VncViewerLib
+﻿namespace VncViewer.Vnc
 {
     public class FramebufferUpdateRequestMessage : MessageBase
     {

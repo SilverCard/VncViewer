@@ -4,7 +4,7 @@ using System.Text;
 
 #pragma warning disable CA1707 // Identifiers should not contain underscores
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public static class RfbVersions
     {

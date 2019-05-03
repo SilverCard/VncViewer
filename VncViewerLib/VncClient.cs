@@ -5,9 +5,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
-
     public class VncClient : IDisposable
     {
         private TcpClient _TcpClient;

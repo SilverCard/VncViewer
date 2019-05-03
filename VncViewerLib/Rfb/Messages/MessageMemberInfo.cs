@@ -3,7 +3,7 @@ using System.Reflection;
 
 #pragma warning disable CA1720 // Identifier contains type name
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class MessageMemberInfo
     {

@@ -4,7 +4,7 @@ using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class ZlibStream : Stream
     {        

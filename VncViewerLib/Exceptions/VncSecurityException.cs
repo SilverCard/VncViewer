@@ -3,7 +3,7 @@
 #pragma warning disable CA1032 // Implement standard exception constructors
 #pragma warning disable CA2237
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class VncSecurityException : Exception
     {

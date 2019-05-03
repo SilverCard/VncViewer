@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net47</TargetFrameworks>
     <Description>.NET Standard VNC Client Library</Description>
     <Company></Company>
     <Copyright>GPL 2</Copyright>
     <Authors>Ricardo Brito, David Humphrey</Authors>
     <PackageLicenseUrl>https://www.gnu.org/licenses/gpl-2.0.html</PackageLicenseUrl>
+    <AssemblyName>VncViewer.Vnc</AssemblyName>
+    <RootNamespace>VncViewer.Vnc</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

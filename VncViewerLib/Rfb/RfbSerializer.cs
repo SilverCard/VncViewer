@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     public class RfbSerializer
     {

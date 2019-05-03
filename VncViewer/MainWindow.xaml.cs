@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace VncViewer
+namespace VncViewer.App
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

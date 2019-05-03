@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VncViewerLib
+namespace VncViewer.Vnc
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class MessageMemberAttribute : Attribute

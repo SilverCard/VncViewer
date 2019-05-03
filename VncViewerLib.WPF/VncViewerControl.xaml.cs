@@ -7,16 +7,16 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows;
 using System.Threading.Tasks;
-using VncViewerLib;
+using VncViewer.Vnc;
 
-namespace VncViewerLib.WPF
+namespace VncViewer.WPF
 {
 
     [ToolboxBitmap(typeof(VncViewerControl), "Resources.vncviewer.ico")]
     public partial class VncViewerControl : UserControl, IDisposable
     {        
         
-        private VncClient _VncClient;          
+        private VncClient _VncClient;        
         
 
         public const String CursorName = "VncCursor";
