@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using VncViewer.App.Core;
 
 namespace VncViewer.App
 {
@@ -10,21 +11,13 @@ namespace VncViewer.App
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        public const String ConfigFilename = "Config.json";
+    {     
         public Config Config { get; private set; }
         public Boolean IsFullScreen { get; private set; }
 
         public MainWindow()
         {
-            Config = Config.ReadFromFile(ConfigFilename);
-
-            if(Config.Password != null)
-            {
-                Config.ProtectPassword();
-                Config.Save(ConfigFilename);
-            }
-
+            Config = ConfigManager.ReadLocalConfig();
             IsFullScreen = false;
         }
 
@@ -47,7 +40,7 @@ namespace VncViewer.App
             String vncPassword;
             try
             {
-                vncPassword = Config.GetUnprotectedPassword();
+                vncPassword = Config.GetPassword();
             }
             catch (Exception)
             {

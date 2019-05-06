@@ -176,8 +176,11 @@ namespace VncViewer.Vnc
         public void Disconnect()
         {
             SetState(VncState.Disconnecting);
-            if (!_Cts.IsCancellationRequested) StopUpdates();
-            _ReceiveUpdatesTask.Wait();
+            if (_Cts?.IsCancellationRequested == false)
+            {
+                StopUpdates();
+            }
+            _ReceiveUpdatesTask?.Wait();
             _TcpClient.Close();
             SetState(VncState.Disconnected);
         }
