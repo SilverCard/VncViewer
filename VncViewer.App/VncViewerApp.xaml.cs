@@ -60,22 +60,15 @@ namespace VncViewer.App
         }
 
         private void ResizeMainWindow()
-        {
+        {       
             if(config.IsFullScreen)
-            {
                 mainWindow.WindowState = WindowState.Maximized;
-            }
-            else if(config.WindowTop >= 0 &&
-                config.WindowLeft >=0 &&
-                config.WindowHeight > 0 &&
-                config.WindowWidth > 0)
-            {
-                mainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
-                mainWindow.Width = config.WindowWidth;
-                mainWindow.Height = config.WindowHeight;
-                mainWindow.Top = config.WindowTop;
-                mainWindow.Left = config.WindowLeft;
-            }
+
+            mainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+            mainWindow.Width = Math.Abs(config.WindowWidth);
+            mainWindow.Height = Math.Abs(config.WindowHeight);
+            mainWindow.Top = Math.Abs(config.WindowTop);
+            mainWindow.Left = Math.Abs(config.WindowLeft);
         }
 
         private void SaveWindowState()
