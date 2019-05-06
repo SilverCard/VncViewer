@@ -84,7 +84,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VncViewerLib\VncViewer.Vnc.csproj">
+    <ProjectReference Include="..\VncViewer.Vnc\VncViewer.Vnc.csproj">
       <Project>{138298b2-85bc-4579-a386-fb35ecd11843}</Project>
       <Name>VncViewer.Vnc</Name>
     </ProjectReference>

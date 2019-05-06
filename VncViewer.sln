@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VncViewer.Vnc", "VncViewerLib\VncViewer.Vnc.csproj", "{138298B2-85BC-4579-A386-FB35ECD11843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VncViewer.Vnc", "VncViewer.Vnc\VncViewer.Vnc.csproj", "{138298B2-85BC-4579-A386-FB35ECD11843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.WPF", "VncViewerLib.WPF\VncViewer.WPF.csproj", "{A64C1541-9D21-4719-9D02-695169FEB9AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.WPF", "VncViewer.WPF\VncViewer.WPF.csproj", "{A64C1541-9D21-4719-9D02-695169FEB9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.App", "VncViewer\VncViewer.App.csproj", "{F5A5C377-72BE-42CA-83BF-5C648137227D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.App", "VncViewer.App\VncViewer.App.csproj", "{F5A5C377-72BE-42CA-83BF-5C648137227D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VncViewer.UWP", "VncViewer.UWP\VncViewer.UWP.csproj", "{843ABB26-E0CD-4850-A921-48CFBED800B7}"
 EndProject

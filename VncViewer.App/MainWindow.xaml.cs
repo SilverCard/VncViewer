@@ -15,9 +15,9 @@ namespace VncViewer.App
         public Config Config { get; private set; }
         public Boolean IsFullScreen { get; private set; }
 
-        public MainWindow()
+        public MainWindow(Config config)
         {
-            Config = ConfigManager.ReadLocalConfig();
+            Config = config;
             IsFullScreen = false;
         }
 

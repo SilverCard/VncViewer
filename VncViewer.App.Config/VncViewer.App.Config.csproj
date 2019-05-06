@@ -101,7 +101,7 @@
       <Project>{85fafdcb-f9aa-4e3f-9593-de1d51dd9a40}</Project>
       <Name>VncViewer.App.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VncViewerLib\VncViewer.Vnc.csproj">
+    <ProjectReference Include="..\VncViewer.Vnc\VncViewer.Vnc.csproj">
       <Project>{138298b2-85bc-4579-a386-fb35ecd11843}</Project>
       <Name>VncViewer.Vnc</Name>
     </ProjectReference>
