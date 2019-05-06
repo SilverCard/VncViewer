@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Net.Sockets;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using System.Windows;
+using VncViewer.App.Config.Cultures;
 using VncViewer.App.Core;
 using VncViewer.Vnc;
 
@@ -48,7 +44,7 @@ namespace VncViewer.App.Config
             }
             catch (CryptographicException)
             {
-                MessageBox.Show("Failed to read password from the config file.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);               
+                MessageBox.Show(Strings.FailedReadPasswordConfigFile, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);               
             }
         }
 
@@ -66,11 +62,11 @@ namespace VncViewer.App.Config
             try
             {
                 ConfigManager.SaveToLocalConfig(config);
-                MessageBox.Show("Saved.", "Config", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Strings.ConfigSaved, "Config", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Failed to save.\r\n{e.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{Strings.ConfigSaveFailed}.\r\n{e.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
        
         }
@@ -84,19 +80,19 @@ namespace VncViewer.App.Config
                     client.Connect(vm.Host, vm.Port);
                     client.Authenticate(new VncAuthenticator(vm.Password));
                     client.Disconnect();
-                    MessageBox.Show("Success.", "Config", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("OK.", "Config", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (SocketException e)
                 {
-                    MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(e.Message, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (VncSecurityException e)
                 {
-                    MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(e.Message, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"{e.Message}\r\n{e.StackTrace}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"{e.Message}\r\n{e.StackTrace}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
             }
