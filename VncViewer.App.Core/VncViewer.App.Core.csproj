@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="ConfigManager.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

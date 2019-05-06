@@ -26,8 +26,39 @@ namespace VncViewer.App
             else
             {
                 mainWindow = new MainWindow(config);
-                mainWindow.Show();
+                ResizeMainWindow();
+                mainWindow.ShowDialog();
+                SaveWindowState();
             }
+        }
+
+        private void ResizeMainWindow()
+        {
+            if(config.IsFullScreen)
+            {
+                mainWindow.WindowState = WindowState.Maximized;
+            }
+            else if(config.WindowTop >= 0 &&
+                config.WindowLeft >=0 &&
+                config.WindowHeight > 0 &&
+                config.WindowWidth > 0)
+            {
+                mainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                mainWindow.Width = config.WindowWidth;
+                mainWindow.Height = config.WindowHeight;
+                mainWindow.Top = config.WindowTop;
+                mainWindow.Left = config.WindowLeft;
+            }
+        }
+
+        private void SaveWindowState()
+        {
+            config.IsFullScreen = mainWindow.WindowState == WindowState.Maximized;
+            config.WindowHeight = mainWindow.Height;
+            config.WindowWidth = mainWindow.Width;
+            config.WindowLeft = mainWindow.Left;
+            config.WindowTop = mainWindow.Top;
+            ConfigManager.SaveToLocalConfig(config);
         }
     }
 }

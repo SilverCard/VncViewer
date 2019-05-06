@@ -19,6 +19,7 @@ namespace VncViewer.App
         {
             Config = config;
             IsFullScreen = false;
+            InitializeComponent();
         }
 
         public void OnConnected()

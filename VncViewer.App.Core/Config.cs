@@ -16,17 +16,25 @@ namespace VncViewer.App.Core
         public byte BitsPerPixel { get; set; } = 8;
         public byte Depth { get; set; } = 8;
 
+        public Boolean IsFullScreen { get; set; } = false;
+        public double WindowTop { get; set; } = 0;
+        public double WindowLeft { get; set; } = 0;
+        public double WindowWidth { get; set; } = 0;
+        public double WindowHeight{ get; set; } = 0;
+
         public void SetPassword(String p)
         {
             if (p != null)
             {
-                ProtectedPassword = ProtectedData.Protect(Encoding.UTF8.GetBytes(p), null, DataProtectionScope.CurrentUser);
+                ProtectedPassword = ProtectedData.Protect(Encoding.UTF8.GetBytes(p), Globals.Entropy, DataProtectionScope.CurrentUser);
             }
         }
 
         public String GetPassword()
         {
-            var p = ProtectedData.Unprotect(ProtectedPassword, null, DataProtectionScope.CurrentUser);
+            if (ProtectedPassword == null) return null;
+
+            var p = ProtectedData.Unprotect(ProtectedPassword, Globals.Entropy, DataProtectionScope.CurrentUser);
             return Encoding.UTF8.GetString(p);
         }
     }

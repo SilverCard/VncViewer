@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Config" Height="Auto" Width="350" SizeToContent="Height" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="VncViewer.App.Config" Height="Auto" Width="350" SizeToContent="Height" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
     </Window.Background>

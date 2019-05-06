@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using VncViewer.App.Core;
@@ -39,6 +40,15 @@ namespace VncViewer.App.Config
             var vm = mainWindow.Model;
             vm.Port = config.Port;
             vm.Host = config.Host;
+
+            try
+            {
+                vm.Password = config.GetPassword();
+            }
+            catch (CryptographicException)
+            {
+                MessageBox.Show("Failed to read password from the config file.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);               
+            }
         }
 
         private void ViewModelToConfig()

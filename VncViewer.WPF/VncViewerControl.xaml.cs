@@ -61,6 +61,7 @@ namespace VncViewer.WPF
             catch (Exception ex)
             {
                 ShowLabelText($"Failed to connect: {ex.Message}.");
+                throw;
             }
 
             OnConnected?.Invoke(this, EventArgs.Empty);
