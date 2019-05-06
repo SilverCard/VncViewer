@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using VncViewer.App.Core;
@@ -18,18 +19,44 @@ namespace VncViewer.App
         {
             config = ConfigManager.ReadLocalConfig();
 
-            if (config == null)
+            if (!CheckConfig())
             {
-                MessageBox.Show("No local config found, please use VncViewer.App.Config.", "VncViewer", MessageBoxButton.OK, MessageBoxImage.Warning);
                 Shutdown();
             }
             else
             {
-                mainWindow = new MainWindow(config);
-                ResizeMainWindow();
-                mainWindow.ShowDialog();
-                SaveWindowState();
+                StartMainWindow();
             }
+        }
+
+        private Boolean CheckConfig()
+        {
+            if(config == null)
+            {
+                MessageBox.Show("No local config found, please use VncViewer.App.Config.", "VncViewer", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            try
+            {
+                _ = config.GetPassword();
+            }
+            catch (CryptographicException)
+            {
+                MessageBox.Show("Failed to read the password.", "VncViewer", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+           
+
+            return true;
+        }
+
+        private void StartMainWindow()
+        {
+            mainWindow = new MainWindow(config);
+            ResizeMainWindow();
+            mainWindow.ShowDialog();
+            SaveWindowState();
         }
 
         private void ResizeMainWindow()

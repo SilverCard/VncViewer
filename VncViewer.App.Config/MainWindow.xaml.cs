@@ -26,17 +26,8 @@ namespace VncViewer.App.Config
         public MainWindow()
         {
             Model = new MainWindowViewModel();
-            Model.PropertyChanged += Model_PropertyChanged;
             this.DataContext = Model;
             InitializeComponent();
-        }
-
-        private void Model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Model.Password))
-            {
-                PasswordBox.Password = Model.Password;
-            }
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -45,12 +36,7 @@ namespace VncViewer.App.Config
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (Model.Password != PasswordBox.Password)
-            {
-                Model.Password = PasswordBox.Password;
-            }
-        }
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e) => Model.Password = PasswordBox.Password;
+
     }
 }

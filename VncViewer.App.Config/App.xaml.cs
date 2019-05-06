@@ -44,6 +44,7 @@ namespace VncViewer.App.Config
             try
             {
                 vm.Password = config.GetPassword();
+                mainWindow.PasswordBox.Password = vm.Password;
             }
             catch (CryptographicException)
             {
