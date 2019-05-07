@@ -16,6 +16,7 @@ namespace VncViewer.App
     {     
         public Config Config { get; private set; }
         public Boolean IsFullScreen { get; private set; }
+        public WindowState LastWindowState { get; private set; }
 
         public MainWindow(Config config)
         {
@@ -93,21 +94,23 @@ namespace VncViewer.App
             {
                 if (!IsFullScreen)
                 {
+                    LastWindowState = this.WindowState;
+                    this.WindowState = WindowState.Maximized;
+
                     // hide the window before changing window style
                     this.Visibility = Visibility.Collapsed;
                     this.WindowStyle = WindowStyle.None;
                     this.ResizeMode = ResizeMode.NoResize;
                     // re-show the window after changing style
-                    this.Visibility = Visibility.Visible;
-
+                    this.Visibility = Visibility.Visible;                  
 
                     IsFullScreen = !IsFullScreen;
                 }
                 else
                 {
+                    this.WindowState = LastWindowState;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
-                    this.ResizeMode = ResizeMode.CanResize;
-
+                    this.ResizeMode = ResizeMode.CanResize;                  
                     IsFullScreen = !IsFullScreen;
                 }
 
