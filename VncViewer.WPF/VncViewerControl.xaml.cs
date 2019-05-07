@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Threading.Tasks;
 using VncViewer.Vnc;
+using VncViewer.WPF.Cultures;
+
+#pragma warning disable CA1305 // Specify IFormatProvider
 
 namespace VncViewer.WPF
 {
@@ -42,9 +45,9 @@ namespace VncViewer.WPF
         
         public async Task ConnectAsync(String host, int port, byte bitsPerPixel, byte depth)
         {
-            if (String.IsNullOrWhiteSpace(host)) throw new ArgumentException("Host is invalid.", nameof(host));
+            if (String.IsNullOrWhiteSpace(host)) throw new ArgumentException(Strings.HostInvalid, nameof(host));
             
-            ShowLabelText($"Connecting to VNC host {host}:{port} please wait... ");
+            ShowLabelText(String.Format(Strings.ConnectingToHost, $"{host}:{port}" ));
 
             _VncClient?.Dispose();
             _VncClient = new VncClient(bitsPerPixel, depth);
@@ -60,7 +63,7 @@ namespace VncViewer.WPF
             }
             catch (Exception ex)
             {
-                ShowLabelText($"Failed to connect: {ex.Message}.");
+                ShowLabelText($"{Strings.FailedConnect}: {ex.Message}.");
                 throw;
             }
 
@@ -69,7 +72,7 @@ namespace VncViewer.WPF
 
         public async Task VncAuthenticate(String password)
         {
-            ShowLabelText($"Authenticating...");
+            ShowLabelText($"{Strings.Authenticating}...");
 
             var a = new VncAuthenticator(password);
 
@@ -79,7 +82,7 @@ namespace VncViewer.WPF
             }
             catch (VncSecurityException ex)
             {
-                ShowLabelText($"Authentication failed: {ex.Reason}.");
+                ShowLabelText($"{Strings.AuthenticationFailed}: {ex.Reason}.");
                 throw;
             }
 
@@ -92,7 +95,7 @@ namespace VncViewer.WPF
         
         public async Task InitializeAsync()
         {
-            ShowLabelText("Initializing...");
+            ShowLabelText($"{Strings.Initializing}...");
             await Task.Run(() => _VncClient.Initialize()).ConfigureAwait(true);
 
             FramebufferBitmap = WritableBitmapWriter.BuildWriteableBitmap(_VncClient.Framebuffer.Width, _VncClient.Framebuffer.Height);
@@ -114,7 +117,7 @@ namespace VncViewer.WPF
 
         protected void VncClientConnectionLost(object sender, EventArgs e)
         {
-            ShowLabelText("Disconnected.");
+            ShowLabelText($"{Strings.Disconnected}.");
         }        
 
         public void ShowLabelText(String text)

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VncViewer.App.Cultures {
+namespace VncViewer.WPF.Cultures {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VncViewer.App.Cultures {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VncViewer.App.Cultures.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VncViewer.WPF.Cultures.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,65 @@ namespace VncViewer.App.Cultures {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No local config found, please use VncViewer.App.Config..
+        ///   Looks up a localized string similar to Authenticating.
         /// </summary>
-        public static string ConfigNotFound {
+        public static string Authenticating {
             get {
-                return ResourceManager.GetString("ConfigNotFound", resourceCulture);
+                return ResourceManager.GetString("Authenticating", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Authentication failed.
         /// </summary>
-        public static string Error {
+        public static string AuthenticationFailed {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("AuthenticationFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to get the protect password from config file..
+        ///   Looks up a localized string similar to Connecting to VNC host {0} please wait....
         /// </summary>
-        public static string PasswordFromFileReadFailed {
+        public static string ConnectingToHost {
             get {
-                return ResourceManager.GetString("PasswordFromFileReadFailed", resourceCulture);
+                return ResourceManager.GetString("ConnectingToHost", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trying to connected in {0}s..
+        ///   Looks up a localized string similar to Disconnected.
         /// </summary>
-        public static string TryingConnect {
+        public static string Disconnected {
             get {
-                return ResourceManager.GetString("TryingConnect", resourceCulture);
+                return ResourceManager.GetString("Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to connect.
+        /// </summary>
+        public static string FailedConnect {
+            get {
+                return ResourceManager.GetString("FailedConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host is invalid..
+        /// </summary>
+        public static string HostInvalid {
+            get {
+                return ResourceManager.GetString("HostInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing.
+        /// </summary>
+        public static string Initializing {
+            get {
+                return ResourceManager.GetString("Initializing", resourceCulture);
             }
         }
     }
