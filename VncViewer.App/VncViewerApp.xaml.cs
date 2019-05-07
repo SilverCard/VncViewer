@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using VncViewer.App.Core;
+using VncViewer.App.Cultures;
 
 namespace VncViewer.App
 {
@@ -33,7 +34,7 @@ namespace VncViewer.App
         {
             if(config == null)
             {
-                MessageBox.Show("No local config found, please use VncViewer.App.Config.", "VncViewer", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Strings.ConfigNotFound, "VncViewer", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
@@ -43,7 +44,7 @@ namespace VncViewer.App
             }
             catch (CryptographicException)
             {
-                MessageBox.Show("Failed to read the password.", "VncViewer", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.PasswordFromFileReadFailed, "VncViewer", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
            

@@ -4,6 +4,9 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using VncViewer.App.Core;
+using VncViewer.App.Cultures;
+
+#pragma warning disable CA1305 // Specify IFormatProvider
 
 namespace VncViewer.App
 {
@@ -31,7 +34,7 @@ namespace VncViewer.App
         {
             for (int i = 10; i >= 1; i--)
             {
-                vvc.ShowLabelText($"{e.Message}\r\nTrying to connected in {i}s.");
+                vvc.ShowLabelText($"{e.Message}\r\n" + String.Format(Strings.TryingConnect, i));
                 await Task.Delay(1000).ConfigureAwait(true);
             }
         }
@@ -45,7 +48,7 @@ namespace VncViewer.App
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to get the protect password from config file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Strings.PasswordFromFileReadFailed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
  
