@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VncViewer.App"
         xmlns:vsw="clr-namespace:VncViewer.WPF;assembly=VncViewer.WPF"
         mc:Ignorable="d"
-        Title="VncViewer" Height="450" Width="800" Initialized="Window_Initialized" WindowStartupLocation="CenterScreen" Closing="Window_Closing" KeyUp="Window_KeyUp">
+        Title="VncViewer" Height="450" Width="800" WindowStartupLocation="CenterScreen" Closing="Window_Closing" KeyUp="Window_KeyUp" Loaded="Window_Loaded">
     <Grid>
         <vsw:VncViewerControl x:Name="vvc" />
     </Grid>

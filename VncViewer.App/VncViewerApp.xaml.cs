@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using System.Windows;
 using VncViewer.App.Core;
 using VncViewer.App.Cultures;
@@ -15,6 +10,7 @@ namespace VncViewer.App
     {
         private MainWindow mainWindow;
         private Config config;
+        public const String AppName = "VncViewer";
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -30,11 +26,14 @@ namespace VncViewer.App
             }
         }
 
+        public static MessageBoxResult ShowWarning(String boxText) => MessageBox.Show(boxText, AppName, MessageBoxButton.OK, MessageBoxImage.Warning);
+        public static MessageBoxResult ShowError(String boxText) => MessageBox.Show(boxText, AppName, MessageBoxButton.OK, MessageBoxImage.Error);
+
         private Boolean CheckConfig()
         {
             if(config == null)
             {
-                MessageBox.Show(Strings.ConfigNotFound, "VncViewer", MessageBoxButton.OK, MessageBoxImage.Warning);
+                ShowWarning(Strings.ConfigNotFound);
                 return false;
             }
 
@@ -44,10 +43,9 @@ namespace VncViewer.App
             }
             catch (CryptographicException)
             {
-                MessageBox.Show(Strings.PasswordFromFileReadFailed, "VncViewer", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowError(Strings.PasswordFromFileReadFailed);
                 return false;
-            }
-           
+            }           
 
             return true;
         }
@@ -55,7 +53,7 @@ namespace VncViewer.App
         private void StartMainWindow()
         {
             mainWindow = new MainWindow(config);
-            ResizeMainWindow();
+            ResizeMainWindow(); 
             mainWindow.ShowDialog();
             SaveWindowState();
         }

@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
+﻿using System;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows;
 using VncViewer.App.Core;
@@ -46,13 +45,13 @@ namespace VncViewer.App
             {
                 vncPassword = Config.GetPassword();
             }
-            catch (Exception)
+            catch (CryptographicException)
             {
                 MessageBox.Show(Strings.PasswordFromFileReadFailed, Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
- 
 
+#pragma warning disable CA1031 // Do not catch general exception types
             while (true)
             {
                 try
@@ -63,17 +62,14 @@ namespace VncViewer.App
                     OnConnected();
                     break;
                 }
+
                 catch (Exception ex)
                 {
                     await HandleConnectionFailed(ex).ConfigureAwait(true);
                 }
-            }
-        }
 
-        private async void Window_Initialized(object sender, System.EventArgs e)
-        {
-            vvc.OnDisconnected += VncConnectionLost;
-            await Connect().ConfigureAwait(true);
+            }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         private void SetTitle(String title)
@@ -116,6 +112,12 @@ namespace VncViewer.App
                 }
 
             }
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            vvc.OnDisconnected += VncConnectionLost;
+            await Connect().ConfigureAwait(true);
         }
     }
 }

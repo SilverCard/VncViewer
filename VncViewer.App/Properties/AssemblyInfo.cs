@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VncViewer")]
+[assembly: AssemblyTitle("VncViewer.App")]
 [assembly: AssemblyDescription("VncViewer WPF Application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VncViewer")]
+[assembly: AssemblyProduct("VncViewer.App")]
 [assembly: AssemblyCopyright("GPL 2")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -54,4 +54,5 @@ using System.Windows;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
+[assembly: Guid("1b4f2ba8-6e12-4140-80dd-9aa0a0eaf7fa")]
 
