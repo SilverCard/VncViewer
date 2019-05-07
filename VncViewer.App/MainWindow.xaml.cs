@@ -88,32 +88,37 @@ namespace VncViewer.App
             vvc.OnDisconnected -= VncConnectionLost;
         }
 
+        private void FullScreen()
+        {
+            if (!IsFullScreen)
+            {
+                LastWindowState = this.WindowState;
+                this.WindowState = WindowState.Maximized;
+
+                // hide the window before changing window style
+                this.Visibility = Visibility.Collapsed;
+                this.WindowStyle = WindowStyle.None;
+                this.ResizeMode = ResizeMode.NoResize;
+
+                // re-show the window after changing style
+                this.Visibility = Visibility.Visible;
+
+                IsFullScreen = !IsFullScreen;
+            }
+            else
+            {
+                this.WindowState = LastWindowState;
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
+                this.ResizeMode = ResizeMode.CanResize;
+                IsFullScreen = !IsFullScreen;
+            }
+        }
+
         private void Window_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.F11)
             {
-                if (!IsFullScreen)
-                {
-                    LastWindowState = this.WindowState;
-                    this.WindowState = WindowState.Maximized;
-
-                    // hide the window before changing window style
-                    this.Visibility = Visibility.Collapsed;
-                    this.WindowStyle = WindowStyle.None;
-                    this.ResizeMode = ResizeMode.NoResize;
-                    // re-show the window after changing style
-                    this.Visibility = Visibility.Visible;                  
-
-                    IsFullScreen = !IsFullScreen;
-                }
-                else
-                {
-                    this.WindowState = LastWindowState;
-                    this.WindowStyle = WindowStyle.SingleBorderWindow;
-                    this.ResizeMode = ResizeMode.CanResize;                  
-                    IsFullScreen = !IsFullScreen;
-                }
-
+                FullScreen();
             }
         }
 
