@@ -18,8 +18,8 @@ namespace VncViewer.App.Core.WindowPlacement
         [DllImport("user32.dll")]
         private static extern bool GetWindowPlacement(IntPtr hWnd, out WindowPlacementStruct lpwndpl);
 
-        private const int SW_SHOWNORMAL = 1;
-        private const int SW_SHOWMINIMIZED = 2;
+        public const int SW_SHOWNORMAL = 1;
+        public const int SW_SHOWMINIMIZED = 2;
 
         public static void SetWpfWindowPlacement(Window window, WindowPlacementStruct wpStruct)
         {
