@@ -86,6 +86,7 @@ namespace VncViewer.App
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             vvc.OnDisconnected -= VncConnectionLost;
+            Config.WindowPlacement = Core.WindowPlacement.WindowPlacementUtils.GetWpfWindowPlacement(this);
         }
 
         private void FullScreen()
@@ -126,6 +127,14 @@ namespace VncViewer.App
         {
             vvc.OnDisconnected += VncConnectionLost;
             await Connect().ConfigureAwait(true);
+        }
+
+        private void Window_SourceInitialized(object sender, EventArgs e)
+        {
+            if (Config.WindowPlacement.HasValue)
+            {
+                Core.WindowPlacement.WindowPlacementUtils.SetWpfWindowPlacement(this, Config.WindowPlacement.Value);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Windows;
 using VncViewer.App.Core;
+using VncViewer.App.Core.WindowPlacement;
 using VncViewer.App.Cultures;
 
 namespace VncViewer.App
@@ -53,31 +54,13 @@ namespace VncViewer.App
         private void StartMainWindow()
         {
             mainWindow = new MainWindow(config);
-            ResizeMainWindow(); 
             mainWindow.ShowDialog();
             SaveWindowState();
-        }
-
-        private void ResizeMainWindow()
-        {       
-            if(config.IsFullScreen)
-                mainWindow.WindowState = WindowState.Maximized;
-
-            mainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
-            mainWindow.Width = Math.Abs(config.WindowWidth);
-            mainWindow.Height = Math.Abs(config.WindowHeight);
-            mainWindow.Top = Math.Abs(config.WindowTop);
-            mainWindow.Left = Math.Abs(config.WindowLeft);
-        }
+        }     
 
         private void SaveWindowState()
         {
-            config.IsFullScreen = mainWindow.WindowState == WindowState.Maximized;
-            config.WindowHeight = mainWindow.Height;
-            config.WindowWidth = mainWindow.Width;
-            config.WindowLeft = mainWindow.Left;
-            config.WindowTop = mainWindow.Top;
-            ConfigManager.SaveToLocalConfig(config);
+           ConfigManager.SaveToLocalConfig(config);
         }
     }
 }

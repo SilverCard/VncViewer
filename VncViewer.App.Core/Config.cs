@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using VncViewer.App.Core.WindowPlacement;
 
 #pragma warning disable CA1819 // Properties should not return arrays
 
@@ -16,11 +17,7 @@ namespace VncViewer.App.Core
         public byte BitsPerPixel { get; set; } = 8;
         public byte Depth { get; set; } = 8;
 
-        public Boolean IsFullScreen { get; set; } = false;
-        public double WindowTop { get; set; } = 0;
-        public double WindowLeft { get; set; } = 0;
-        public double WindowWidth { get; set; } = 0;
-        public double WindowHeight{ get; set; } = 0;
+        public WindowPlacementStruct? WindowPlacement { get; set; }   
 
         public void SetPassword(String p)
         {
