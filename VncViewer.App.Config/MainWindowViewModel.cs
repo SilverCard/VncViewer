@@ -12,19 +12,19 @@ namespace VncViewer.App.Config
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {    
-        private String _Host;
-        private int _Port;
-        private String _Password;
-        private Boolean _IsEnabled;
+        private String host;
+        private int port;
+        private String password;
+        private Boolean isEnabled;
 
         public Action<MainWindowViewModel> SaveAction { get; set; }
         public Action<MainWindowViewModel> TestAction { get; set; }
 
         public String Host {
-            get => _Host;
+            get => host;
             set
             {
-                _Host = value;
+                host = value;
                 OnPropertyRaised();
                 IsValidChanged();
             }
@@ -32,10 +32,10 @@ namespace VncViewer.App.Config
 
         public int Port
         {
-            get => _Port;
+            get => port;
             set
             {
-                _Port = value;
+                port = value;
                 OnPropertyRaised();
                 IsValidChanged();
             }
@@ -43,10 +43,10 @@ namespace VncViewer.App.Config
 
         public String Password
         {
-            get => _Password;
+            get => password;
             set
             {
-                _Password = value;
+                password = value;
                 OnPropertyRaised();
                 IsValidChanged();
             }
@@ -64,10 +64,10 @@ namespace VncViewer.App.Config
 
         public Boolean IsEnabled
         {
-            get => _IsEnabled;
+            get => isEnabled;
             set
             {
-                _IsEnabled = value;
+                isEnabled = value;
                 OnPropertyRaised();
             }
         }

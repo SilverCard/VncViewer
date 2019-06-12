@@ -20,9 +20,11 @@ namespace VncViewer.App.Core.WindowPlacement
 
         public const int SW_SHOWNORMAL = 1;
         public const int SW_SHOWMINIMIZED = 2;
+        public const int SW_SHOWMAXIMIZED = 3;
 
         public static void SetWpfWindowPlacement(Window window, WindowPlacementStruct wpStruct)
         {
+            if (window == null) throw new ArgumentNullException(nameof(window));        
             SetWindowPlacement(new WindowInteropHelper(window).Handle, ref wpStruct);
         }
 

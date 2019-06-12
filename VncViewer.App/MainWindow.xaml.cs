@@ -134,7 +134,10 @@ namespace VncViewer.App
             if (Config.WindowPlacement.HasValue)
             {
                 var wp = Config.WindowPlacement.Value;
-                wp.showCmd = Core.WindowPlacement.WindowPlacementUtils.SW_SHOWNORMAL;
+
+                if (wp.showCmd == Core.WindowPlacement.WindowPlacementUtils.SW_SHOWMINIMIZED)
+                    wp.showCmd = Core.WindowPlacement.WindowPlacementUtils.SW_SHOWNORMAL;
+
                 Core.WindowPlacement.WindowPlacementUtils.SetWpfWindowPlacement(this, wp);
             }
         }
