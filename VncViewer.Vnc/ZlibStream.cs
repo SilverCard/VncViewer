@@ -29,6 +29,8 @@ namespace VncViewer.Vnc
 
         public void SetBuffer(byte[] b)
         {
+            if (b == null) throw new ArgumentNullException(nameof(b));           
+
             _Buffer.SetLength(b.Length);
             _Buffer.Position = 0;
             _Buffer.Write(b, 0, b.Length);

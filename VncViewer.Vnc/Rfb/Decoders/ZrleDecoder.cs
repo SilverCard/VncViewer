@@ -16,6 +16,8 @@ namespace VncViewer.Vnc
 
         public ZrleDecoder(Framebuffer framebuffer, RfbSerializer rfbSerializer, ZlibStream zStream) : base(framebuffer, rfbSerializer, zStream)
         {
+            if (framebuffer == null) throw new ArgumentNullException(nameof(framebuffer));            
+
             _DSerializer = new RfbSerializer(zStream);
 
             var bpp = framebuffer.PixelFormat.BitsPerPixel;

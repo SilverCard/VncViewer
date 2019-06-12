@@ -57,6 +57,8 @@ namespace VncViewer.Vnc
 
         public void Serialize(Object value)
         {
+            if (value == null) throw new ArgumentNullException(nameof(value));           
+
             var memberInfos = value.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(MessageMemberAttribute))).Select(p => MessageMemberInfo.FromPropertyInfo(p, value));
 
             foreach (var m in memberInfos.OrderBy(x => x.MessageMemberAttribute.Index))

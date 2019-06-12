@@ -15,6 +15,8 @@ namespace VncViewer.Vnc
 
         public static MessageMemberInfo FromPropertyInfo(PropertyInfo pi, Object obj)
         {
+            if (pi == null) throw new ArgumentNullException(nameof(pi));            
+
             return new MessageMemberInfo()
             {
                 MessageMemberAttribute = pi.GetCustomAttribute<MessageMemberAttribute>(),

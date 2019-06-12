@@ -9,11 +9,11 @@ namespace VncViewer.Vnc
 {
     public class VncClient : IDisposable
     {
-        private TcpClient _TcpClient;
-        private RfbSerializer _Serializer;
-        private byte[] _SecurityTypes;
-        private int _Timeout;
-        private VncState _VncState;
+        private TcpClient tcpClient;
+        private RfbSerializer serializer;
+        private byte[] securityTypes;
+        private int timeout;
+        private VncState vncState;
 
         /// <summary>
         /// RFB version of the server.
@@ -33,12 +33,12 @@ namespace VncViewer.Vnc
         /// <summary>
         /// Decoder of the Framebuffer update rectangles.
         /// </summary>
-        private RfbDecoder _RfbDecoder;
+        private RfbDecoder rfbDecoder;
 
         /// <summary>
         /// Pixel format of the Framebuffer.
         /// </summary>
-        private PixelFormat _PixelFormat;
+        private PixelFormat pixelFormat;
 
         /// <summary>
         /// Raised when the framebuffer is updated.
@@ -55,31 +55,31 @@ namespace VncViewer.Vnc
         /// </summary>
         public event VncStateChangedEventHandler OnStateChanged;
 
-        private Task _ReceiveUpdatesTask;
-        private CancellationTokenSource _Cts;
+        private Task receiveUpdatesTask;
+        private CancellationTokenSource cts;
 
         private object _FullScreenRefreshLock = new object();
         private bool _FullScreenRefresh = false;      
  
         public VncClient(byte bitsPerPixel = 16, byte depth = 8)
         {
-            _TcpClient = new TcpClient()
+            tcpClient = new TcpClient()
             {
                 NoDelay = true,
                 SendTimeout = Timeout,
                 ReceiveTimeout = Timeout
             };
-            _SecurityTypes = Array.Empty<byte>();
+            securityTypes = Array.Empty<byte>();
 
-            _PixelFormat = new PixelFormat(bitsPerPixel, depth);
-            Timeout = 1500;
-            _VncState = VncState.NotConnected;
+            pixelFormat = new PixelFormat(bitsPerPixel, depth);
+            Timeout = 30*1000;
+            vncState = VncState.NotConnected;
         }
 
         private void SetState(VncState newState)
         {
             var o = VncState;
-            _VncState = newState;
+            vncState = newState;
             OnStateChanged?.Invoke(this, new VncStateChangedEventArgs(o, newState));
         }
 
@@ -87,8 +87,8 @@ namespace VncViewer.Vnc
         {
             SetState(VncState.Connecting);
 
-            _TcpClient.Connect(host, port);
-            _Serializer = new RfbSerializer(_TcpClient.GetStream());
+            tcpClient.Connect(host, port);
+            serializer = new RfbSerializer(tcpClient.GetStream());
 
             HandshakeProtocolVersion();
             GetSecurityTypes();
@@ -106,26 +106,26 @@ namespace VncViewer.Vnc
 
         private void ClientInit()
         {
-            _Serializer.WriteByte(1);
+            serializer.WriteByte(1);
         }
 
         private void ServerInit()
         {
-            var msg = _Serializer.ReadServerInitMessage();
+            var msg = serializer.ReadServerInitMessage();
 
-            _PixelFormat.IsBigEndian = msg.PixelFormat.IsBigEndian;          
-            Framebuffer = new Framebuffer(msg.FramebufferWidth, msg.FramebufferHeight, _PixelFormat)
+            pixelFormat.IsBigEndian = msg.PixelFormat.IsBigEndian;          
+            Framebuffer = new Framebuffer(msg.FramebufferWidth, msg.FramebufferHeight, pixelFormat)
             {
                 Name = msg.Name
             };
 
-            _Serializer.WriteMessage(new SetEncodingsMessage(RfbDecoder.SupportedDecoders));
-            _Serializer.WriteMessage(new SetPixelFormatMessage(Framebuffer.PixelFormat));
+            serializer.WriteMessage(new SetEncodingsMessage(RfbDecoder.SupportedDecoders));
+            serializer.WriteMessage(new SetPixelFormatMessage(Framebuffer.PixelFormat));
         }
 
         public void RequestScreenUpdate(bool refreshFullScreen)
         {
-            _Serializer.WriteMessage(new FramebufferUpdateRequestMessage()
+            serializer.WriteMessage(new FramebufferUpdateRequestMessage()
             {
                 X = 0,
                 Y = 0,
@@ -152,36 +152,36 @@ namespace VncViewer.Vnc
 
         private void ReceiveFramebufferUpdate(CancellationToken token)
         {           
-            var r = _RfbDecoder.UpdateFramebuffer(token);
+            var r = rfbDecoder.UpdateFramebuffer(token);
             OnFramebufferUpdate?.Invoke(this, new FramebufferUpdateEventArgs(Framebuffer, r));    
         }
 
         private void UpdateColourMapEntries()
         {
-            var map = _Serializer.ReadColorMapEntries();
+            var map = serializer.ReadColorMapEntries();
             Framebuffer.UpdateColorMap(map);
         }
 
         public void ReceiveUpdates()
         {
-            _Cts = new CancellationTokenSource();
-            _ReceiveUpdatesTask = Task.Run(() => ReceiveUpdates(_Cts.Token));
+            cts = new CancellationTokenSource();
+            receiveUpdatesTask = Task.Run(() => ReceiveUpdates(cts.Token));
         }
 
         public void StopUpdates()
         {
-            _Cts.Cancel();
+            cts.Cancel();
         }
 
         public void Disconnect()
         {
             SetState(VncState.Disconnecting);
-            if (_Cts?.IsCancellationRequested == false)
+            if (cts?.IsCancellationRequested == false)
             {
                 StopUpdates();
             }
-            _ReceiveUpdatesTask?.Wait();
-            _TcpClient.Close();
+            receiveUpdatesTask?.Wait();
+            tcpClient.Close();
             SetState(VncState.Disconnected);
         }
 
@@ -197,9 +197,9 @@ namespace VncViewer.Vnc
 
         private void HandleMessage(CancellationToken token)
         {
-            _TcpClient.ReceiveTimeout = 0;
-            var msgType = _Serializer.ReadServerMessageType();
-            _TcpClient.ReceiveTimeout = Timeout;
+            tcpClient.ReceiveTimeout = 0;
+            var msgType = serializer.ReadServerMessageType();
+            tcpClient.ReceiveTimeout = Timeout;
 
             switch (msgType)
             {
@@ -243,8 +243,8 @@ namespace VncViewer.Vnc
         {
             if (VncState != VncState.Initialized) throw new VncException("The client must be initialized.");
 
-            _RfbDecoder?.Dispose();
-            _RfbDecoder = new RfbDecoder(Framebuffer, _Serializer);
+            rfbDecoder?.Dispose();
+            rfbDecoder = new RfbDecoder(Framebuffer, serializer);
 
             SetState(VncState.ReceivingMessages);
 
@@ -271,38 +271,40 @@ namespace VncViewer.Vnc
         {
             if (ServerVersion == RfbVersions.v3_3)
             {
-                var type = _Serializer.ReadUInt32();
-                _SecurityTypes = new byte[] { (byte)type };
+                var type = serializer.ReadUInt32();
+                securityTypes = new byte[] { (byte)type };
             }
             else
             {
-                var n = _Serializer.ReadByte();
+                var n = serializer.ReadByte();
                 if (n == 0) throw new Exception();
 
-                _SecurityTypes = _Serializer.ReadBytes(n);
+                securityTypes = serializer.ReadBytes(n);
             }
         }
 
         private void HandshakeProtocolVersion()
         {
-            ServerVersion = _Serializer.ReadVersion();
+            ServerVersion = serializer.ReadVersion();
 
             if (ServerVersion == RfbVersions.v3_3)
                 ClientVersion = ServerVersion;
             else
                 ClientVersion = RfbVersions.v3_8;
 
-            _Serializer.WriteVersion(ClientVersion);
+            serializer.WriteVersion(ClientVersion);
         }
 
         public void Authenticate(RfbAuthenticator a)
         {
+            if (a == null) throw new ArgumentNullException(nameof(a));            
+
             SetState(VncState.Authenticating);
 
             if (!IsSecurityTypeSupported(a.SecurityType)) throw new NotSupportedException();
 
-            _Serializer.WriteByte(a.SecurityType);
-            a.Authenticate(_Serializer);
+            serializer.WriteByte(a.SecurityType);
+            a.Authenticate(serializer);
             GetSecurityResult();
 
             SetState(VncState.Authenticated);
@@ -318,7 +320,7 @@ namespace VncViewer.Vnc
             byte type = 0;
             if (!IsSecurityTypeSupported(type)) throw new NotSupportedException();
 
-            _Serializer.WriteByte(type);
+            serializer.WriteByte(type);
 
             if (ServerVersion >= RfbVersions.v3_8)
                 GetSecurityResult();
@@ -328,11 +330,11 @@ namespace VncViewer.Vnc
 
         private void GetSecurityResult()
         {
-            var securityResult = _Serializer.ReadUInt32();
+            var securityResult = serializer.ReadUInt32();
 
             if (securityResult >= 1 && ServerVersion >= RfbVersions.v3_8)
             {
-                var reason = _Serializer.ReadString();
+                var reason = serializer.ReadString();
                 throw new VncSecurityException($"Failed to authenticate: {reason}.", securityResult, reason);
             }
         }
@@ -347,23 +349,23 @@ namespace VncViewer.Vnc
         /// </summary>
         public Boolean SupportsVncAuthentication => SecurityTypes.Contains((byte)2);
 
-        public IEnumerable<byte> SecurityTypes => _SecurityTypes == null ? Enumerable.Empty<byte>() : _SecurityTypes;
+        public IEnumerable<byte> SecurityTypes => securityTypes == null ? Enumerable.Empty<byte>() : securityTypes;
         public Boolean IsSecurityTypeSupported(byte b) => SecurityTypes.Contains(b);
-        public VncState VncState => _VncState;
+        public VncState VncState => vncState;
 
         /// <summary>
         /// Timeout of the socket.
         /// </summary>
         public int Timeout
         {
-            get => _Timeout;
+            get => timeout;
             set 
             {
-                _Timeout = value;
-                if(_TcpClient != null)
+                timeout = value;
+                if(tcpClient != null)
                 {
-                    _TcpClient.ReceiveTimeout = _Timeout;
-                    _TcpClient.SendTimeout = _Timeout;
+                    tcpClient.ReceiveTimeout = timeout;
+                    tcpClient.SendTimeout = timeout;
                 }
             }
         }
@@ -377,9 +379,10 @@ namespace VncViewer.Vnc
             {
                 if (disposing)
                 {
-                    _TcpClient?.Dispose();
+                    tcpClient?.Dispose();
+                    rfbDecoder?.Dispose();
+                    cts?.Dispose();
                 }
-
                 disposedValue = true;
             }
         }
